@@ -4,6 +4,8 @@ import Popup from "./components/Popup/Popup.js";
 import TodoSection from "./components/TodoSection/TodoSection.js";
 import listSvg from "./images/Vector.svg";
 
+import DB from "./db.json";
+
 function App() {
     const [isAdd, setIsAdd] = React.useState(false);
 
@@ -43,7 +45,7 @@ function App() {
                     ></TodoSection>
                 </ul>
                 <AddButton setIsAdd={setIsAdd} />
-                <Popup isAdd={isAdd} setIsAdd={setIsAdd} />
+                <Popup isAdd={isAdd} setIsAdd={setIsAdd} list={DB.colors} />
             </div>
             <div className="todo__tasks"></div>
         </div>

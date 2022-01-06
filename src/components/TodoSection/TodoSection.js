@@ -1,4 +1,5 @@
 import React from "react";
+import Color from "../Color/Color";
 import "./TodoSection.scss";
 
 function TodoSection({ items, isRemovable }) {
@@ -10,7 +11,7 @@ function TodoSection({ items, isRemovable }) {
                         {item.icon ? (
                             <img alt="list icon" src={item.icon}></img>
                         ) : (
-                            <i className={`color color_${item.color}`}></i>
+                            <Color color={item.color} />
                         )}
                     </div>
                     <p>{item.text}</p>

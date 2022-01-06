@@ -1,0 +1,38 @@
+.color {
+    &_1 {
+        background-color: #c9d1d3;
+    }
+    &_2 {
+        background-color: #42b883;
+    }
+    &_3 {
+        background-color: #64c4ed;
+    }
+    &_4 {
+        background-color: #ffbbcc;
+    }
+    &_5 {
+        background-color: #b6e6bd;
+    }
+    &_6 {
+        background-color: #c355f5;
+    }
+    &_7 {
+        background-color: #09011a;
+    }
+    &_8 {
+        background-color: #ff6464;
+    }
+
+    &_big {
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    &_big-active {
+        outline: 2px solid #525252;
+    }
+}
