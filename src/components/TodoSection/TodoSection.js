@@ -1,12 +1,11 @@
 import React from "react";
 import "./TodoSection.scss";
 
-function TodoSection({ items }) {
+function TodoSection({ items, isRemovable }) {
     return (
         <>
-            {items.map((item) => (
-                <li className={item.active ? "active" : ""}>
-                    {/*className="active"*/}
+            {items.map((item, index) => (
+                <li key={index} className={item.active ? "active" : ""}>
                     <div>
                         {item.icon ? (
                             <img alt="list icon" src={item.icon}></img>

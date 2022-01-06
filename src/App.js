@@ -1,9 +1,12 @@
 import React from "react";
+import AddButton from "./components/AddButton/AddButton.jsx";
+import Popup from "./components/Popup/Popup.js";
 import TodoSection from "./components/TodoSection/TodoSection.js";
 import listSvg from "./images/Vector.svg";
-import plus from "./images/plus.svg";
 
 function App() {
+    const [isAdd, setIsAdd] = React.useState(false);
+
     return (
         <div className="todo">
             <div className="todo__sidebar">
@@ -36,22 +39,11 @@ function App() {
                                 text: "Личное",
                             },
                         ]}
+                        isRemovable={true}
                     ></TodoSection>
-                    {/*
-                    <TodoSection text="Покупки" vector={vector2}></TodoSection>
-                    <TodoSection text="Фронтенд" vector={vector2}></TodoSection>
-                    <TodoSection
-                        text="Фильмы и сериалы"
-                        vector={vector2}
-                    ></TodoSection>
-                    <TodoSection text="Книги" vector={vector2}></TodoSection>
-                    <TodoSection text="Личное" vector={vector2}></TodoSection>
-                   */}
                 </ul>
-                <button className="todo__button">
-                    <img className="todo__button-icon" src={plus} alt="plus" />
-                    Добавить папку
-                </button>
+                <AddButton setIsAdd={setIsAdd} />
+                <Popup isAdd={isAdd} setIsAdd={setIsAdd} />
             </div>
             <div className="todo__tasks"></div>
         </div>
