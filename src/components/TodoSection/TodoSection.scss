@@ -1,0 +1,75 @@
+.todo__list {
+    color: #000000;
+    margin-bottom: 40px;
+
+    li:first-of-type {
+        margin-bottom: 20px;
+    }
+
+    li {
+        height: 37px;
+        display: flex;
+        align-items: center;
+        transition: background-color 0.2s ease;
+        margin-bottom: 2px;
+
+        &.active {
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+        div {
+            width: 44.6px;
+            display: flex;
+            justify-content: left;
+        }
+        img,
+        i {
+            margin-left: 12px;
+        }
+        i {
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+        }
+        p {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 128px;
+        }
+    }
+    li:hover {
+        background-color: white;
+        cursor: pointer;
+        border-radius: 4px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+}
+
+.color {
+    &_1 {
+        background-color: #c9d1d3;
+    }
+    &_2 {
+        background-color: #42b883;
+    }
+    &_3 {
+        background-color: #64c4ed;
+    }
+    &_4 {
+        background-color: #ffbbcc;
+    }
+    &_5 {
+        background-color: #b6e6bd;
+    }
+    &_6 {
+        background-color: #c355f5;
+    }
+    &_7 {
+        background-color: #09011a;
+    }
+    &_8 {
+        background-color: #ff6464;
+    }
+}
