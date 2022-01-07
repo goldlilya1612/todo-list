@@ -45,4 +45,21 @@
         border-radius: 4px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     }
+
+    li:hover .todo__remove-button {
+        opacity: 1;
+        cursor: pointer;
+    }
+}
+
+.todo__remove-button {
+    background-image: url("../../images/remove.svg");
+    background-repeat: no-repeat;
+    height: 10px;
+    width: 13px;
+    border: none;
+    background-color: inherit;
+    margin-right: 13px;
+
+    opacity: 0;
 }

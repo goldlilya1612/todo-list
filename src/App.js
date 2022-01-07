@@ -12,11 +12,16 @@ function App() {
 
     const addFolder = (inputValue, selectedColor) => {
         const newData = {
-            id: DB.lists.length + 1,
+            id: lists.length + 1,
             name: inputValue,
             colorId: selectedColor,
         };
         const newList = [...lists, newData];
+        setLists(newList);
+    };
+
+    const onRemove = (item) => {
+        const newList = lists.filter((list) => list.id !== item.id);
         setLists(newList);
     };
 
@@ -30,18 +35,16 @@ function App() {
                                 {
                                     icon: listSvg,
                                     name: "Все задачи",
-                                    active: true,
                                 },
                             ]}
-                            isRemovable={true}
                         ></TodoSection>
                         <TodoSection
                             items={lists}
                             isRemovable={true}
+                            onRemove={onRemove}
                         ></TodoSection>
                     </ul>
                 )}
-
                 <AddButton setIsAdd={setIsAdd} />
                 <Popup
                     isAdd={isAdd}

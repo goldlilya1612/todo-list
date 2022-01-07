@@ -2,11 +2,14 @@ import React from "react";
 import Color from "../Color/Color";
 import "./TodoSection.scss";
 
-function TodoSection({ items, isRemovable }) {
+function TodoSection({ items, isRemovable, onRemove }) {
     return (
         <>
             {items.map((item, index) => (
-                <li key={index} className={item.active ? "active" : ""}>
+                <li
+                    key={index}
+                    className={`todo__list-item ${item.active ? "active" : ""}`}
+                >
                     <div>
                         {item.icon ? (
                             <img alt="list icon" src={item.icon}></img>
@@ -15,6 +18,12 @@ function TodoSection({ items, isRemovable }) {
                         )}
                     </div>
                     <p>{item.name}</p>
+                    {isRemovable && (
+                        <button
+                            className="todo__remove-button"
+                            onClick={() => onRemove(item)}
+                        ></button>
+                    )}
                 </li>
             ))}
         </>
