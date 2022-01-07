@@ -8,6 +8,7 @@ function Popup({ isAdd, setIsAdd, list, addItem }) {
 
     const closePopup = () => {
         setIsAdd(false);
+        setInputValue("");
         setSelectedColor("");
     };
 
@@ -17,8 +18,7 @@ function Popup({ isAdd, setIsAdd, list, addItem }) {
 
     const handleAddClick = () => {
         addItem(inputValue, selectedColor);
-        setInputValue("");
-        setSelectedColor("");
+        closePopup();
     };
 
     return (
