@@ -1,0 +1,20 @@
+.todo {
+    &__button {
+        color: #767676;
+        border: none;
+        background-color: inherit;
+        margin-left: 12px;
+        transition: opacity 0.3s ease;
+    }
+
+    &__button:hover {
+        cursor: pointer;
+        opacity: 0.7;
+    }
+
+    &__button-icon {
+        width: 10px;
+        height: 10px;
+        margin-right: 10px;
+    }
+}

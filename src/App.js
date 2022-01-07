@@ -1,57 +1,57 @@
 import React from "react";
+import AddButton from "./components/AddButton/AddButton.jsx";
+import Popup from "./components/Popup/Popup.js";
 import TodoSection from "./components/TodoSection/TodoSection.js";
 import listSvg from "./images/Vector.svg";
-import plus from "./images/plus.svg";
+
+import DB from "./db.json";
 
 function App() {
+    const [isAdd, setIsAdd] = React.useState(false);
+    const [lists, setLists] = React.useState([]);
+
+    const addFolder = (inputValue, selectedColor) => {
+        const newData = {
+            id: lists.length + 1,
+            name: inputValue,
+            colorId: selectedColor,
+        };
+        const newList = [...lists, newData];
+        setLists(newList);
+    };
+
+    const onRemove = (item) => {
+        const newList = lists.filter((list) => list.id !== item.id);
+        setLists(newList);
+    };
+
     return (
         <div className="todo">
             <div className="todo__sidebar">
-                <ul className="todo__list">
-                    <TodoSection
-                        items={[
-                            {
-                                icon: listSvg,
-                                text: "Все задачи",
-                                active: true,
-                            },
-                            {
-                                color: "2",
-                                text: "Покупки",
-                            },
-                            {
-                                color: "3",
-                                text: "Фронтентд",
-                            },
-                            {
-                                color: "4",
-                                text: "Фильмы и сериалы",
-                            },
-                            {
-                                color: "5",
-                                text: "Книги",
-                            },
-                            {
-                                color: "1",
-                                text: "Личное",
-                            },
-                        ]}
-                    ></TodoSection>
-                    {/*
-                    <TodoSection text="Покупки" vector={vector2}></TodoSection>
-                    <TodoSection text="Фронтенд" vector={vector2}></TodoSection>
-                    <TodoSection
-                        text="Фильмы и сериалы"
-                        vector={vector2}
-                    ></TodoSection>
-                    <TodoSection text="Книги" vector={vector2}></TodoSection>
-                    <TodoSection text="Личное" vector={vector2}></TodoSection>
-                   */}
-                </ul>
-                <button className="todo__button">
-                    <img className="todo__button-icon" src={plus} alt="plus" />
-                    Добавить папку
-                </button>
+                {lists.length !== 0 && (
+                    <ul className="todo__list">
+                        <TodoSection
+                            items={[
+                                {
+                                    icon: listSvg,
+                                    name: "Все задачи",
+                                },
+                            ]}
+                        ></TodoSection>
+                        <TodoSection
+                            items={lists}
+                            isRemovable={true}
+                            onRemove={onRemove}
+                        ></TodoSection>
+                    </ul>
+                )}
+                <AddButton setIsAdd={setIsAdd} />
+                <Popup
+                    isAdd={isAdd}
+                    setIsAdd={setIsAdd}
+                    list={DB.colors}
+                    addItem={addFolder}
+                />
             </div>
             <div className="todo__tasks"></div>
         </div>

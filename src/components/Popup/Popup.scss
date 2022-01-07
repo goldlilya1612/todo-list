@@ -1,0 +1,87 @@
+input::-webkit-input-placeholder {
+    color: #c7c7c7;
+}
+input::-moz-placeholder {
+    color: #c7c7c7;
+}
+
+.popup {
+    padding-top: 18px;
+    padding-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    top: 13px;
+    width: 235px;
+    height: calc(138px - 18px * 2);
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.3s, opacity 0.3s linear;
+
+    &__close-button {
+        position: absolute;
+        right: -6px;
+        top: -6px;
+        width: 20.63px;
+        height: 20.63px;
+        border: none;
+        background-color: inherit;
+        border-radius: 50%;
+        background-image: url("../../images/close-button.svg");
+    }
+
+    &__close-button:hover {
+        cursor: pointer;
+    }
+
+    &__input {
+        width: calc(200px - 11px);
+        height: 32px;
+        border: 1px solid #efefef;
+        border-radius: 4px;
+
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+
+        letter-spacing: 0.15px;
+        color: #c7c7c7;
+
+        padding-left: 11px;
+    }
+
+    &__add-button {
+        width: 200px;
+        height: 37px;
+        border: none;
+    }
+
+    &__colors {
+        display: flex;
+        width: 200px;
+        justify-content: space-between;
+    }
+}
+
+.popup_inactive {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.button {
+    background-color: #4dd599;
+    border-radius: 4px;
+    color: #ffffff;
+    transition: opacity 0.3s ease;
+}
+
+.button:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
