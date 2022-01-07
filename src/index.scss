@@ -21,7 +21,7 @@ body {
     &__sidebar {
         background-color: #f4f6f8;
         width: calc(200px - 40px);
-        height: calc(100% - 48px * 2);
+        min-height: inherit;
         border-right: 1px solid #f1f1f1;
         padding: 48px 20px;
     }
@@ -45,11 +45,12 @@ body {
         margin-right: 10px;
     }
 
+    display: flex;
     position: absolute;
     left: 50%;
     top: 50%;
     width: 750px;
-    height: 530px;
+    min-height: 530px;
     transform: translate(-50%, -50%);
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

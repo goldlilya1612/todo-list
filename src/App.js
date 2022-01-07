@@ -1,28 +1,58 @@
-import React from "react";
-import AddButton from "./components/AddButton/AddButton.jsx";
-import Popup from "./components/Popup/Popup.js";
-import TodoSection from "./components/TodoSection/TodoSection.js";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import {
+    AddButton,
+    Popup,
+    TodoSection,
+    TasksHeader,
+    TaskItem,
+} from "./components/components";
 import listSvg from "./images/Vector.svg";
 
-import DB from "./db.json";
-
 function App() {
-    const [isAdd, setIsAdd] = React.useState(false);
-    const [lists, setLists] = React.useState([]);
+    const [isAdd, setIsAdd] = useState(false);
+    const [lists, setLists] = useState([]);
+    const [colors, setColors] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const isActive = true;
 
-    const addFolder = (inputValue, selectedColor) => {
+    useEffect(() => {
+        axios
+            .get("http://localhost:3001/lists?_expand=color")
+            .then(({ data }) => setLists(data))
+            .catch((err) => console.log(err));
+        axios
+            .get("http://localhost:3001/colors")
+            .then(({ data }) => setColors(data))
+            .catch((err) => console.log(err));
+    }, []);
+
+    const addFolder = (inputValue, selectedColor, closePopup) => {
+        setIsLoading(true);
         const newData = {
             id: lists.length + 1,
             name: inputValue,
             colorId: selectedColor,
         };
-        const newList = [...lists, newData];
-        setLists(newList);
+        axios
+            .post("http://localhost:3001/lists", newData)
+            .then(({ data }) => {
+                const newList = [...lists, data];
+                setLists(newList);
+                closePopup();
+            })
+            .catch((err) => console.log(err))
+            .finally(() => {
+                setIsLoading(false);
+            });
     };
 
     const onRemove = (item) => {
-        const newList = lists.filter((list) => list.id !== item.id);
-        setLists(newList);
+        console.log(item);
+        axios.delete("http://localhost:3001/lists/" + item.id).then(() => {
+            const newList = lists.filter((list) => list.id !== item.id);
+            setLists(newList);
+        });
     };
 
     return (
@@ -49,11 +79,15 @@ function App() {
                 <Popup
                     isAdd={isAdd}
                     setIsAdd={setIsAdd}
-                    list={DB.colors}
+                    list={colors}
                     addItem={addFolder}
+                    isLoading={isLoading}
                 />
             </div>
-            <div className="todo__tasks"></div>
+            <div className="todo__tasks">
+                <TasksHeader isActive={isActive} />
+                <TaskItem />
+            </div>
         </div>
     );
 }

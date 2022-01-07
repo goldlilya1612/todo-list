@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Color from "../Color/Color";
 import "./Popup.scss";
 
-function Popup({ isAdd, setIsAdd, list, addItem }) {
+function Popup({ isAdd, setIsAdd, list, addItem, isLoading }) {
     const [selectedColor, setSelectedColor] = useState("");
     const [inputValue, setInputValue] = useState("");
 
@@ -17,8 +17,7 @@ function Popup({ isAdd, setIsAdd, list, addItem }) {
     };
 
     const handleAddClick = () => {
-        addItem(inputValue, selectedColor);
-        closePopup();
+        addItem(inputValue, selectedColor, closePopup);
     };
 
     return (
@@ -51,7 +50,7 @@ function Popup({ isAdd, setIsAdd, list, addItem }) {
                 className="popup__add-button button"
                 onClick={handleAddClick}
             >
-                Добавить
+                {isLoading ? "Добавление..." : "Добавить"}
             </button>
         </div>
     );
