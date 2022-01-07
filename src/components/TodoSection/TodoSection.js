@@ -11,10 +11,10 @@ function TodoSection({ items, isRemovable }) {
                         {item.icon ? (
                             <img alt="list icon" src={item.icon}></img>
                         ) : (
-                            <Color color={item.color} />
+                            <Color color={item.colorId} />
                         )}
                     </div>
-                    <p>{item.text}</p>
+                    <p>{item.name}</p>
                 </li>
             ))}
         </>

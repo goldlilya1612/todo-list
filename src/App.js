@@ -8,44 +8,47 @@ import DB from "./db.json";
 
 function App() {
     const [isAdd, setIsAdd] = React.useState(false);
+    const [lists, setLists] = React.useState([]);
+
+    const addFolder = (inputValue, selectedColor) => {
+        const newData = {
+            id: DB.lists.length + 1,
+            name: inputValue,
+            colorId: selectedColor,
+        };
+        const newList = [...lists, newData];
+        setLists(newList);
+    };
 
     return (
         <div className="todo">
             <div className="todo__sidebar">
-                <ul className="todo__list">
-                    <TodoSection
-                        items={[
-                            {
-                                icon: listSvg,
-                                text: "Все задачи",
-                                active: true,
-                            },
-                            {
-                                color: "2",
-                                text: "Покупки",
-                            },
-                            {
-                                color: "3",
-                                text: "Фронтентд",
-                            },
-                            {
-                                color: "4",
-                                text: "Фильмы и сериалы",
-                            },
-                            {
-                                color: "5",
-                                text: "Книги",
-                            },
-                            {
-                                color: "1",
-                                text: "Личное",
-                            },
-                        ]}
-                        isRemovable={true}
-                    ></TodoSection>
-                </ul>
+                {lists.length !== 0 && (
+                    <ul className="todo__list">
+                        <TodoSection
+                            items={[
+                                {
+                                    icon: listSvg,
+                                    name: "Все задачи",
+                                    active: true,
+                                },
+                            ]}
+                            isRemovable={true}
+                        ></TodoSection>
+                        <TodoSection
+                            items={lists}
+                            isRemovable={true}
+                        ></TodoSection>
+                    </ul>
+                )}
+
                 <AddButton setIsAdd={setIsAdd} />
-                <Popup isAdd={isAdd} setIsAdd={setIsAdd} list={DB.colors} />
+                <Popup
+                    isAdd={isAdd}
+                    setIsAdd={setIsAdd}
+                    list={DB.colors}
+                    addItem={addFolder}
+                />
             </div>
             <div className="todo__tasks"></div>
         </div>
