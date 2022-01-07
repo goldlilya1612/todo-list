@@ -1,7 +1,7 @@
 import React from "react";
 import "./TaskItem.scss";
 
-function TaskItem() {
+function TaskItem({ task }) {
     const handleChange = (e) => {
         console.log(e.target.value);
     };
@@ -9,8 +9,8 @@ function TaskItem() {
     return (
         <div className="todo__task-item">
             <div className="checkbox">
-                <input id="check1" type="checkbox"></input>
-                <label htmlFor="check1">
+                <input id={task.id} type="checkbox"></input>
+                <label htmlFor={task.id}>
                     <svg
                         width="11"
                         height="8"
@@ -31,7 +31,7 @@ function TaskItem() {
             <input
                 onChange={handleChange}
                 type="text"
-                value="Изучить JavaScript"
+                value={task.text}
                 className="checkbox__label"
             ></input>
         </div>

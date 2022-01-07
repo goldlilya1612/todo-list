@@ -2,13 +2,16 @@ import React from "react";
 import Color from "../Color/Color";
 import "./TodoSection.scss";
 
-function TodoSection({ items, isRemovable, onRemove }) {
+function TodoSection({ items, isRemovable, onRemove, onClickItem, data }) {
     return (
         <>
             {items.map((item, index) => (
                 <li
                     key={index}
-                    className={`todo__list-item ${item.active ? "active" : ""}`}
+                    className={`todo__list-item ${
+                        data && item.id === data.id ? "active" : ""
+                    }`}
+                    onClick={() => onClickItem(item)}
                 >
                     <div>
                         {item.icon ? (

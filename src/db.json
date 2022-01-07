@@ -2,16 +2,41 @@
   "lists": [
     {
       "id": 1,
-      "name": "hello",
+      "name": "Фронтенд",
       "colorId": "8"
     },
     {
       "id": 3,
-      "name": "me",
-      "colorId": "4"
+      "name": "Универ",
+      "colorId": "7"
     }
   ],
-  "tasks": [],
+  "tasks": [
+    {
+      "listId": 1,
+      "text": "Найти макет",
+      "completed": false,
+      "id": 6
+    },
+    {
+      "listId": 1,
+      "text": "Сверстать сайт",
+      "completed": false,
+      "id": 7
+    },
+    {
+      "listId": 1,
+      "text": "Написать функционал",
+      "completed": true,
+      "id": 8
+    },
+    {
+      "listId": 1,
+      "text": "Разобраться в React",
+      "completed": false,
+      "id": 9
+    }
+  ],
   "colors": [
     {
       "id": 1,

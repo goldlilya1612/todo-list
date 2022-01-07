@@ -1,11 +1,26 @@
 import React from "react";
 import "./TasksHeader.scss";
+import axios from "axios";
 
-function TasksHeader({ isActive }) {
+function TasksHeader({ data, handleEdit }) {
+    const onEdit = () => {
+        const newTitle = window.prompt("Введите название списка", data.name);
+        if (newTitle) {
+            handleEdit(data, newTitle);
+            axios.patch("http://localhost:3001/lists/" + data.id, {
+                name: newTitle,
+            });
+        }
+    };
+
     return (
         <div className="todo__tasks-wrapper">
-            <h1 className="todo__tasks-header">Фронтенд</h1>
-            {isActive && <button className="todo__edit-button"></button>}
+            <h1
+                className={`todo__tasks-header todo__tasks-header_${data.colorId}`}
+            >
+                {data.name}
+            </h1>
+            <button onClick={onEdit} className="todo__edit-button"></button>
         </div>
     );
 }

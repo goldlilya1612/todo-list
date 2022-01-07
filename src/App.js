@@ -11,14 +11,14 @@ import listSvg from "./images/Vector.svg";
 
 function App() {
     const [isAdd, setIsAdd] = useState(false);
-    const [lists, setLists] = useState([]);
+    const [lists, setLists] = useState(null);
     const [colors, setColors] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const isActive = true;
+    const [data, setData] = useState(null);
 
     useEffect(() => {
         axios
-            .get("http://localhost:3001/lists?_expand=color")
+            .get("http://localhost:3001/lists?_expand=color&_embed=tasks")
             .then(({ data }) => setLists(data))
             .catch((err) => console.log(err));
         axios
@@ -48,17 +48,27 @@ function App() {
     };
 
     const onRemove = (item) => {
-        console.log(item);
         axios.delete("http://localhost:3001/lists/" + item.id).then(() => {
             const newList = lists.filter((list) => list.id !== item.id);
             setLists(newList);
+            setData(null);
         });
+    };
+
+    const handleEdit = ({ id }, title) => {
+        const newList = lists.map((item) => {
+            if (item.id === id) {
+                item.name = title;
+            }
+            return item;
+        });
+        setLists(newList);
     };
 
     return (
         <div className="todo">
             <div className="todo__sidebar">
-                {lists.length !== 0 && (
+                {lists && lists.length !== 0 && (
                     <ul className="todo__list">
                         <TodoSection
                             items={[
@@ -72,6 +82,10 @@ function App() {
                             items={lists}
                             isRemovable={true}
                             onRemove={onRemove}
+                            onClickItem={(item) => {
+                                setData(item);
+                            }}
+                            data={data}
                         ></TodoSection>
                     </ul>
                 )}
@@ -85,8 +99,24 @@ function App() {
                 />
             </div>
             <div className="todo__tasks">
-                <TasksHeader isActive={isActive} />
-                <TaskItem />
+                {lists && data ? (
+                    <>
+                        <TasksHeader data={data} handleEdit={handleEdit} />
+                        {data.tasks.length !== 0 ? (
+                            data.tasks.map((task) => (
+                                <TaskItem key={task.id} task={task} />
+                            ))
+                        ) : (
+                            <p className="todo__tasks_none">
+                                Задачи отсутствуют
+                            </p>
+                        )}
+                    </>
+                ) : (
+                    <div className="todo__tasks_none-wrapper">
+                        <p className="todo__tasks_none">Задачи отсутствуют</p>
+                    </div>
+                )}
             </div>
         </div>
     );

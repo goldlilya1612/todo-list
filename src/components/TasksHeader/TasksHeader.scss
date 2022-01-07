@@ -2,6 +2,24 @@
     &__tasks {
         padding: 56px 74px 61px 55px;
         width: 100%;
+
+        &_none-wrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &_none {
+            font-weight: bold;
+            font-size: 32px;
+            line-height: 39px;
+            margin: 0 auto;
+            /* identical to box height */
+
+            color: #c9d1d3;
+        }
     }
     &__tasks-wrapper {
         display: flex;
@@ -16,6 +34,31 @@
         line-height: 39px;
 
         color: #64c4ed;
+
+        &_1 {
+            color: #c9d1d3;
+        }
+        &_2 {
+            color: #42b883;
+        }
+        &_3 {
+            color: #64c4ed;
+        }
+        &_4 {
+            color: #ffbbcc;
+        }
+        &_5 {
+            color: #b6e6bd;
+        }
+        &_6 {
+            color: #c355f5;
+        }
+        &_7 {
+            color: #09011a;
+        }
+        &_8 {
+            color: #ff6464;
+        }
     }
     &__edit-button {
         background-image: url("../../images/edit-button.svg");
