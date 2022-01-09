@@ -3,12 +3,32 @@
     {
       "id": 1,
       "name": "Фронтенд",
-      "colorId": "8"
+      "colorId": 5
+    },
+    {
+      "id": 2,
+      "name": "Друзья",
+      "colorId": 4
     },
     {
       "id": 3,
-      "name": "Универ",
-      "colorId": "7"
+      "name": "Фильмы и сериалы",
+      "colorId": 3
+    },
+    {
+      "id": 4,
+      "name": "Книги",
+      "colorId": 2
+    },
+    {
+      "id": 5,
+      "name": "Личное",
+      "colorId": 1
+    },
+    {
+      "id": 6,
+      "name": "help",
+      "colorId": "8"
     }
   ],
   "tasks": [
@@ -35,6 +55,36 @@
       "text": "Разобраться в React",
       "completed": false,
       "id": 9
+    },
+    {
+      "listId": 1,
+      "text": "test",
+      "completed": false,
+      "id": 123
+    },
+    {
+      "listId": 1,
+      "text": "Допилить программу",
+      "completed": false,
+      "id": 124
+    },
+    {
+      "listId": 3,
+      "text": "Посмотреть французского вестника",
+      "completed": false,
+      "id": 125
+    },
+    {
+      "listId": 6,
+      "text": "Закончить писать код",
+      "completed": false,
+      "id": 126
+    },
+    {
+      "listId": 6,
+      "text": "Изучть тайп",
+      "completed": false,
+      "id": 127
     }
   ],
   "colors": [

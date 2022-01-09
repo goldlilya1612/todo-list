@@ -5,6 +5,15 @@
         background-color: inherit;
         margin-left: 12px;
         transition: opacity 0.3s ease;
+
+        &_task {
+            margin-top: 20px;
+            margin-left: 14px;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19px;
+            letter-spacing: 0.15px;
+        }
     }
 
     &__button:hover {

@@ -6,11 +6,13 @@ import {
     TodoSection,
     TasksHeader,
     TaskItem,
+    Form,
 } from "./components/components";
 import listSvg from "./images/Vector.svg";
 
 function App() {
     const [isAdd, setIsAdd] = useState(false);
+    const [isAddTask, setIsAddTask] = useState(false);
     const [lists, setLists] = useState(null);
     const [colors, setColors] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +47,16 @@ function App() {
             .finally(() => {
                 setIsLoading(false);
             });
+    };
+
+    const addTask = (listId, taskObj) => {
+        const newList = lists.map((item) => {
+            if (item.id === listId) {
+                item.tasks = [...item.tasks, taskObj];
+            }
+            return item;
+        });
+        setLists(newList);
     };
 
     const onRemove = (item) => {
@@ -89,7 +101,7 @@ function App() {
                         ></TodoSection>
                     </ul>
                 )}
-                <AddButton setIsAdd={setIsAdd} />
+                <AddButton setIsAdd={setIsAdd} text="Добавить папку" />
                 <Popup
                     isAdd={isAdd}
                     setIsAdd={setIsAdd}
@@ -110,6 +122,21 @@ function App() {
                             <p className="todo__tasks_none">
                                 Задачи отсутствуют
                             </p>
+                        )}
+                        {isAddTask ? (
+                            <Form
+                                addTask={addTask}
+                                setIsAddTask={setIsAddTask}
+                                data={data}
+                                isLoading={isLoading}
+                                setIsLoading={setIsLoading}
+                            />
+                        ) : (
+                            <AddButton
+                                setIsAdd={setIsAddTask}
+                                isAddTask={isAddTask}
+                                text="Добавить задачу"
+                            />
                         )}
                     </>
                 ) : (
