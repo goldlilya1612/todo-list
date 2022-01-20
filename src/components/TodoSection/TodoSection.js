@@ -11,7 +11,9 @@ function TodoSection({ items, isRemovable, onRemove, onClickItem, data }) {
                     className={`todo__list-item ${
                         data && item.id === data.id ? "active" : ""
                     }`}
-                    onClick={() => onClickItem(item)}
+                    onClick={() => {
+                        onClickItem(item);
+                    }}
                 >
                     <div>
                         {item.icon ? (

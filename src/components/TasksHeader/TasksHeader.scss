@@ -1,7 +1,8 @@
 .todo {
     &__tasks {
-        padding: 56px 74px 61px 55px;
+        padding: 0px 74px 61px 55px;
         width: 100%;
+        overflow-y: scroll;
 
         &_none-wrapper {
             height: 100%;
@@ -21,6 +22,7 @@
         }
     }
     &__tasks-wrapper {
+        margin-top: 56px;
         display: flex;
         align-items: center;
         padding-bottom: 20px;

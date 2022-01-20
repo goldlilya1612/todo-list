@@ -2,7 +2,7 @@ import React from "react";
 import "./TasksHeader.scss";
 import axios from "axios";
 
-function TasksHeader({ data, handleEdit }) {
+function TasksHeader({ data, handleEdit, withoutButton }) {
     const onEdit = () => {
         const newTitle = window.prompt("Введите название списка", data.name);
         if (newTitle) {
@@ -22,7 +22,9 @@ function TasksHeader({ data, handleEdit }) {
             >
                 {data.name}
             </h1>
-            <button onClick={onEdit} className="todo__edit-button"></button>
+            {!withoutButton && (
+                <button onClick={onEdit} className="todo__edit-button"></button>
+            )}
         </div>
     );
 }

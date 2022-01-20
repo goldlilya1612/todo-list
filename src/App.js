@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Switch, Route, useHistory } from "react-router-dom";
 import axios from "axios";
 import {
     AddButton,
@@ -13,21 +14,39 @@ import listSvg from "./images/Vector.svg";
 function App() {
     const [isAdd, setIsAdd] = useState(false);
     const [isAddTask, setIsAddTask] = useState(false);
-    const [lists, setLists] = useState(null);
+    const [lists, setLists] = useState([]);
     const [colors, setColors] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState(null);
+    const [isAllTasks, setIsAllTasks] = useState(false);
+
+    let history = useHistory();
 
     useEffect(() => {
         axios
             .get("http://localhost:3001/lists?_expand=color&_embed=tasks")
-            .then(({ data }) => setLists(data))
+            .then(({ data }) => {
+                setLists(data);
+            })
             .catch((err) => console.log(err));
         axios
             .get("http://localhost:3001/colors")
             .then(({ data }) => setColors(data))
             .catch((err) => console.log(err));
     }, []);
+
+    useEffect(() => {
+        if (lists) {
+            if (history.location.pathname.split("/")[1] === "") {
+                setIsAllTasks(true);
+            } else {
+                setIsAllTasks(false);
+                const listId = history.location.pathname.split("lists/")[1];
+                const list = lists.find((list) => list.id === Number(listId));
+                setData(list);
+            }
+        }
+    }, [lists, isAllTasks, history.location.pathname]);
 
     const addFolder = (inputValue, selectedColor, closePopup) => {
         setIsLoading(true);
@@ -77,10 +96,12 @@ function App() {
         setLists(newList);
     };
 
+    //TODO: когда удаляешь папку, находясь в ней (именно находясь в ней!!!) -- редирект на главную
+
     return (
         <div className="todo">
             <div className="todo__sidebar">
-                {lists && lists.length !== 0 && (
+                {lists && lists.length > 0 && (
                     <ul className="todo__list">
                         <TodoSection
                             items={[
@@ -89,6 +110,12 @@ function App() {
                                     name: "Все задачи",
                                 },
                             ]}
+                            onClickItem={(item) => {
+                                setIsAllTasks(true);
+                                setData(item);
+                                setIsAddTask(false);
+                                history.push(`/`);
+                            }}
                         ></TodoSection>
                         <TodoSection
                             items={lists}
@@ -96,6 +123,8 @@ function App() {
                             onRemove={onRemove}
                             onClickItem={(item) => {
                                 setData(item);
+                                setIsAddTask(false);
+                                history.push(`/lists/${item.id}`);
                             }}
                             data={data}
                         ></TodoSection>
@@ -111,10 +140,35 @@ function App() {
                 />
             </div>
             <div className="todo__tasks">
-                {lists && data ? (
+                <Route exact path="/">
+                    {lists.map((list) => (
+                        <div key={list.id}>
+                            {list &&
+                                list.tasks.length !== 0 &&
+                                list.length !== 0 && (
+                                    <>
+                                        <TasksHeader
+                                            withoutButton={true}
+                                            data={list}
+                                            handleEdit={handleEdit}
+                                        />
+                                        {list.tasks.map((task) => (
+                                            <TaskItem
+                                                key={task.id}
+                                                task={task}
+                                            />
+                                        ))}
+                                    </>
+                                )}
+                        </div>
+                    ))}
+                </Route>
+                {lists && !isAllTasks && (
                     <>
-                        <TasksHeader data={data} handleEdit={handleEdit} />
-                        {data.tasks.length !== 0 ? (
+                        {data && (
+                            <TasksHeader data={data} handleEdit={handleEdit} />
+                        )}
+                        {data && data.tasks.length > 0 ? (
                             data.tasks.map((task) => (
                                 <TaskItem key={task.id} task={task} />
                             ))
@@ -139,11 +193,8 @@ function App() {
                             />
                         )}
                     </>
-                ) : (
-                    <div className="todo__tasks_none-wrapper">
-                        <p className="todo__tasks_none">Задачи отсутствуют</p>
-                    </div>
                 )}
+                {lists.length === 0 && <h1> hi </h1>}
             </div>
         </div>
     );
